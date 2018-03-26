@@ -1,7 +1,5 @@
 #pragma once
 #include"stdafx.h"
-#include<iostream>
-#include<fstream>
 
 using namespace std;
 
@@ -14,11 +12,14 @@ private:
 	char* OutArray;//储存要输出的终局
 	long int OutArray_Pointer;
 	inline char* into_OutArray();
+	char select;
 public:
 	Sudoku();
 	void Strategy_C(int i, int j);
-	void Strategy_S();
+	void Straregy_S(Input input);
+	bool ifSolve_S(int i, int j);
 	bool Check_C(int num, int i, int j);
-	void Output_C();
-	void charArray_init(int Out_Num);
+	bool Check_S(int num, int i, int j);
+	void Output_CS();
+	void charArray_init(int Out_Num, char Sel);
 };
