@@ -21,10 +21,10 @@
     <ClInclude Include="targetver.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Sudoku.h">
+    <ClInclude Include="sudoku.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="InputOutput.h">
+    <ClInclude Include="input_control.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -32,13 +32,13 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Project_Sudoku.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Sudoku.cpp">
+    <ClCompile Include="sudoku.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="InputOutput.cpp">
+    <ClCompile Include="input_control.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

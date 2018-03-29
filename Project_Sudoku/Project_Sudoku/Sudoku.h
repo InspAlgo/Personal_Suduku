@@ -6,20 +6,18 @@ using namespace std;
 class Sudoku
 {
 private:
-	char board[10][10];
-	int Num; //已生成数独终局个数
-	int Output_Num; //要求生成数独终局的个数
-	char* OutArray;//储存要输出的终局
-	long int OutArray_Pointer;
-	inline char* into_OutArray();
-	char select;
+	char board_[10][10];
+	int num_;          // 已生成数独终局个数
+	int output_num_;   // 要求生成数独终局的个数
+	char* out_array_;  // 储存要输出的终局
+	int out_array_pointer_;
+	void intoOutArray();
 public:
 	Sudoku();
-	void Strategy_C(int i, int j);
-	void Straregy_S(Input input);
-	bool ifSolve_S(int i, int j);
-	bool Check_C(int num, int i, int j);
-	bool Check_S(int num, int i, int j);
-	void Output_CS();
-	void charArray_init(int Out_Num, char Sel);
+	void strategyC(int i, int j);
+	void straregyS(Input input);
+	bool ifSolveS(int i, int j);
+	bool checkCS(int num, int i, int j);
+	void outputCS();
+	void charArrayInit(int Out_Num);
 };
