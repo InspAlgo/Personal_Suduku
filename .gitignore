@@ -1,3 +1,17 @@
+# Personal Configuration
+.vs/*
+Project_Sudoku/.vs/*
+Project_Sudoku/Debug/*
+Project_Sudoku/Release/*
+Project_Sudoku/x64/*
+Project_Sudoku/TestResults/*
+Project_Sudoku/Project_Sudoku/Debug/*
+Project_Sudoku/Project_Sudoku/Release/*
+Project_Sudoku/Project_Sudoku/x64/*
+*.suo
+*.db
+!sudoku.exe
+
 # Prerequisites
 *.d
 
