@@ -12,12 +12,14 @@ private:
 	char* out_array_;  // 储存要输出的终局
 	int out_array_pointer_;
 	void intoOutArray();
+	bool num_row[10][10];
+	bool num_col[10][10];
+	bool num_box[10][10][10];
 public:
 	Sudoku();
 	void strategyC(int i, int j);
 	void straregyS(Input input);
 	bool ifSolveS(int i, int j);
-	bool checkCS(int num, int i, int j);
 	void outputCS();
 	void charArrayInit(int Out_Num);
 };

@@ -5,10 +5,18 @@ using namespace std;
 
 Sudoku::Sudoku()
 {
-	for (int i = 1; i <= 9; i++)
-		for (int j = 1; j <= 9; j++)
+	for (int i = 0; i <= 9; i++)
+		for (int j = 0; j <= 9; j++)
+		{
 			this->board_[i][j] = '0';
-
+			this->num_row[i][j] = true;
+			this->num_col[i][j] = true;
+			for (int k = 0; k <= 9; k++)
+				this->num_box[i][j][k] = true;
+		}
+	this->num_row[2][1] = false;
+	this->num_col[2][1] = false;
+	this->num_box[2][1][1] = false;
 	this->board_[1][1] = 2 + '0';  // 第一个数是[(学号后两位相加)%9+1]
 	this->num_ = 0;
 	this->output_num_ = 0;
@@ -40,12 +48,12 @@ void Sudoku::intoOutArray()
 {
 	for (int i = 1; i <= 9; i++)
 	{
-		for (int j = 1; j <= 9; j++)
+		for (int j = 1; j <= 8; j++)
 		{
 			this->out_array_[this->out_array_pointer_++] = this->board_[i][j];
-			if (j != 9)
-				this->out_array_[this->out_array_pointer_++] = ' ';
+			this->out_array_[this->out_array_pointer_++] = ' ';
 		}
+		this->out_array_[this->out_array_pointer_++] = this->board_[i][9];
 		this->out_array_[this->out_array_pointer_++] = '\n';
 	}
 	this->out_array_[this->out_array_pointer_++] = '\n';
@@ -69,20 +77,32 @@ void Sudoku::strategyC(int i, int j)
 		j = 1;
 	}
 
+	int row = ((i - 1) / 3) * 3 + 1;
+	int col = ((j - 1) / 3) * 3 + 1;
 	for (int num = 1; num <= NUMBER; num++)  // 填入数字num
 	{
 		if (this->num_ >= this->output_num_)
 			return;
-		if (checkCS(num, i, j))
+
+		if (this->num_row[num][i] == true
+			&& this->num_col[num][j] == true
+			&& this->num_box[num][row][col] == true)
 		{
 			this->board_[i][j] = num + '0';
-			strategyC(i, j + 1);
-		}
-	}
+			this->num_row[num][i] = false;
+			this->num_col[num][j] = false;
+			this->num_box[num][row][col] = false;
 
+			strategyC(i, j + 1);
+
+			this->num_row[num][i] = true;
+			this->num_col[num][j] = true;
+			this->num_box[num][row][col] = true;
+		}
+
+	}
 	this->board_[i][j] = '0';  // 回溯时当前位又要重置为0
 }
-
 
 void Sudoku::straregyS(Input input)
 {
@@ -92,16 +112,37 @@ void Sudoku::straregyS(Input input)
 		cout << "Error: 打开文件错误！" << endl;
 		exit(-1);
 	}
-
-	char new_board[10][10] = { '\0' };
-	memset(new_board, '\0', sizeof(new_board));
-
-	while (input.copyNewBoard(read_file,new_board))
+	string s;
+	int num = 0;
+	while (true)
 	{
-		memcpy(board_, new_board, 100);
+		memset(board_, '0', sizeof(board_));
+		memset(num_row, true, sizeof(num_row));
+		memset(num_col, true, sizeof(num_col));
+		memset(num_box, true, sizeof(num_box));
+		for (int i = 1; i <= 9; i++)
+		{
+			if (!getline(read_file, s))
+			{
+				read_file.close();
+				return;
+			}
+
+			for (int k = 0, j = 1; k <= 16; k += 2, j++)
+			{
+				num = s[k] - '0';
+				this->board_[i][j] = s[k];
+				this->num_row[num][i] = false;
+				this->num_col[num][j] = false;
+				this->num_box[num][i][j] = false;
+			}
+		}
+		getline(read_file, s);
 
 		if (ifSolveS(1, 1))
+		{
 			intoOutArray();
+		}	
 		else
 			cout << "无解！" << endl;
 	}
@@ -123,40 +164,29 @@ bool Sudoku::ifSolveS(int i, int j)
 	if (this->board_[i][j] != '0')
 		return ifSolveS(i, j + 1);
 
+	int row = ((i - 1) / 3) * 3 + 1;
+	int col = ((j - 1) / 3) * 3 + 1;
 	for (int num = 1; num <= NUMBER; num++)
 	{
-		if (checkCS(num, i, j))
+		if (this->num_row[num][i] == true
+			&& this->num_col[num][j] == true
+			&& this->num_box[num][row][col] == true)
 		{
 			this->board_[i][j] = num + '0';
+			this->num_row[num][i] = false;
+			this->num_col[num][j] = false;
+			this->num_box[num][row][col] = false;
+
 			bool out_come = ifSolveS(i, j + 1);
+
 			if (out_come)
 				return true;
+			this->num_row[num][i] = true;
+			this->num_col[num][j] = true;
+			this->num_box[num][row][col] = true;
 		}
 	}
 
 	this->board_[i][j] = '0';
 	return false;
-}
-
-bool Sudoku::checkCS(int num, int i, int j)
-{
-	for (int row = 1, col=1; row <= 9, col<=9; row++, col++)
-	{
-		if (this->board_[i][row] == '0' + num 
-			|| this->board_[col][j] == '0' + num)
-			return false;
-	}
-
-	/* check 3*3 block */
-	int row = ((i - 1) / 3) * 3 + 1;
-	int col = ((j - 1) / 3) * 3 + 1;
-	for (int x = row; x <= row + 2; x++)
-	{
-		for (int y = col; y <= col + 2; y++)
-		{
-			if (this->board_[x][y] == '0' + num)
-				return false;
-		}
-	}
-	return true;
 }

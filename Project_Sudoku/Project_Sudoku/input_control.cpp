@@ -42,17 +42,3 @@ void Input::strategySelect()
 		exit(-1);
 	}
 }
-
-bool Input::copyNewBoard(fstream &file, char cboard[][10])
-{
-	string s;
-	for (int i = 1; i <= 9; i++)
-	{
-		if (!getline(file, s))
-			return false;
-		for (int k = 0, j = 1; k <= 16; k += 2, j++)
-			cboard[i][j] = s[k];
-	}
-	getline(file, s);
-	return true;
-}

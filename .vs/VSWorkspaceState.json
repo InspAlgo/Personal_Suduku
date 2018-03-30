@@ -1,6 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Project_Sudoku",
+    "\\Project_Sudoku\\Project_Sudoku"
   ],
+  "SelectedNode": "\\Project_Sudoku\\Project_Sudoku\\input_control.cpp",
   "PreviewInSolutionExplorer": false
 }

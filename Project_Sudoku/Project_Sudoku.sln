@@ -6,17 +6,24 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Project_Sudoku", "Project_Sudoku\Project_Sudoku.vcxproj", "{1CDE0FDD-875B-49C6-BCE3-4F7391444181}"
 EndProject
 Global
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1CDE0FDD-875B-49C6-BCE3-4F7391444181}.Debug|Any CPU.ActiveCfg = Debug|Win32
 		{1CDE0FDD-875B-49C6-BCE3-4F7391444181}.Debug|x64.ActiveCfg = Debug|x64
 		{1CDE0FDD-875B-49C6-BCE3-4F7391444181}.Debug|x64.Build.0 = Debug|x64
 		{1CDE0FDD-875B-49C6-BCE3-4F7391444181}.Debug|x86.ActiveCfg = Debug|Win32
 		{1CDE0FDD-875B-49C6-BCE3-4F7391444181}.Debug|x86.Build.0 = Debug|Win32
+		{1CDE0FDD-875B-49C6-BCE3-4F7391444181}.Release|Any CPU.ActiveCfg = Release|Win32
 		{1CDE0FDD-875B-49C6-BCE3-4F7391444181}.Release|x64.ActiveCfg = Release|x64
 		{1CDE0FDD-875B-49C6-BCE3-4F7391444181}.Release|x64.Build.0 = Release|x64
 		{1CDE0FDD-875B-49C6-BCE3-4F7391444181}.Release|x86.ActiveCfg = Release|Win32
@@ -27,5 +34,8 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A92EFFFB-DBF9-47F5-A2EE-6B8DEE62C0A0}
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
 	EndGlobalSection
 EndGlobal
