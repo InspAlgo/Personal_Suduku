@@ -10,6 +10,8 @@ Project_Sudoku/Project_Sudoku/Release/*
 Project_Sudoku/Project_Sudoku/x64/*
 *.suo
 *.db
+*.psess
+*.vspx
 !sudoku.exe
 
 # Prerequisites
