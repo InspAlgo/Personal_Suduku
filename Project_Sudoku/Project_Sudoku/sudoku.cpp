@@ -5,15 +5,11 @@ using namespace std;
 
 Sudoku::Sudoku()
 {
-	for (int i = 0; i <= 9; i++)
-		for (int j = 0; j <= 9; j++)
-		{
-			this->board_[i][j] = '0';
-			this->num_row[i][j] = true;
-			this->num_col[i][j] = true;
-			for (int k = 0; k <= 9; k++)
-				this->num_box[i][j][k] = true;
-		}
+	memset(board_, '0', sizeof(board_));
+	memset(num_row, true, sizeof(num_row));
+	memset(num_col, true, sizeof(num_col));
+	memset(num_box, true, sizeof(num_box));
+
 	this->board_[1][1] = 2 + '0';  // 第一个数是[(学号后两位相加)%9+1]
 	this->num_row[2][1] = false;
 	this->num_col[2][1] = false;
@@ -40,6 +36,7 @@ void Sudoku::outputCS()
 	fstream file("sudoku.txt", ios::out);
 	file << this->out_array_;
 	delete[] this->out_array_;
+	this->out_array_ = NULL;
 	file.close();
 }
 
@@ -62,6 +59,7 @@ void Sudoku::strategyC(int i, int j)
 {
 	if (this->num_ >= this->output_num_)
 		return;
+
 	if (i == 9 && j == 10)  // 当完成了一个新终局时
 	{
 		this->num_++;
@@ -78,6 +76,7 @@ void Sudoku::strategyC(int i, int j)
 
 	int row = ((i - 1) / 3) * 3 + 1;
 	int col = ((j - 1) / 3) * 3 + 1;
+
 	for (int num = 1; num <= NUMBER; num++)  // 填入数字num
 	{
 		if (this->num_ >= this->output_num_)
@@ -100,44 +99,45 @@ void Sudoku::strategyC(int i, int j)
 		}
 
 	}
+
 	this->board_[i][j] = '0';  // 回溯时当前位又要重置为0
 }
 
-void Sudoku::straregyS(Input input)
+bool Sudoku::readSudoku(fstream &read_file)
 {
-	fstream read_file(input.file_name, ios::in);
+	string str_line;
+	int num = 0;
+	memset(num_row, true, sizeof(num_row));
+	memset(num_col, true, sizeof(num_col));
+	memset(num_box, true, sizeof(num_box));
+	for (int i = 1; i <= 9; i++)
+	{
+		if (!getline(read_file, str_line))
+			return false;
+		for (int k = 0, j = 1; k <= 16; k += 2, j++)
+		{
+			num = str_line[k] - '0';
+			this->board_[i][j] = str_line[k];
+			this->num_row[num][i] = false;
+			this->num_col[num][j] = false;
+			this->num_box[num][i][j] = false;
+		}
+	}
+	getline(read_file, str_line);
+	return true;
+}
+
+void Sudoku::straregyS(char *file_name)
+{
+	fstream read_file(file_name, ios::in);
 	if (!read_file.is_open())
 	{
 		cout << "Error: 打开文件错误！" << endl;
 		exit(-1);
 	}
-	string s;
-	int num = 0;
-	while (true)
+
+	while (readSudoku(read_file))
 	{
-		memset(board_, '0', sizeof(board_));
-		memset(num_row, true, sizeof(num_row));
-		memset(num_col, true, sizeof(num_col));
-		memset(num_box, true, sizeof(num_box));
-		for (int i = 1; i <= 9; i++)
-		{
-			if (!getline(read_file, s))
-			{
-				read_file.close();
-				return;
-			}
-
-			for (int k = 0, j = 1; k <= 16; k += 2, j++)
-			{
-				num = s[k] - '0';
-				this->board_[i][j] = s[k];
-				this->num_row[num][i] = false;
-				this->num_col[num][j] = false;
-				this->num_box[num][i][j] = false;
-			}
-		}
-		getline(read_file, s);
-
 		if (ifSolveS(1, 1))
 		{
 			intoOutArray();
@@ -165,6 +165,7 @@ bool Sudoku::ifSolveS(int i, int j)
 
 	int row = ((i - 1) / 3) * 3 + 1;
 	int col = ((j - 1) / 3) * 3 + 1;
+
 	for (int num = 1; num <= NUMBER; num++)
 	{
 		if (this->num_row[num][i] == true
@@ -180,6 +181,7 @@ bool Sudoku::ifSolveS(int i, int j)
 
 			if (out_come)
 				return true;
+
 			this->num_row[num][i] = true;
 			this->num_col[num][j] = true;
 			this->num_box[num][row][col] = true;

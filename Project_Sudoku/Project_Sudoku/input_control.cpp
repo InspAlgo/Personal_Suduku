@@ -6,6 +6,9 @@ Input::Input(int argc, char** argv)
 {
 	this->argc_ = argc;
 	this->argv_ = argv;
+	this->select = '\0';
+	this->out_num = 0;
+	this->file_name = NULL;
 }
 
 void Input::strategySelect()

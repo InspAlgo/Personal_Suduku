@@ -8,11 +8,13 @@ Project_Sudoku/TestResults/*
 Project_Sudoku/Project_Sudoku/Debug/*
 Project_Sudoku/Project_Sudoku/Release/*
 Project_Sudoku/Project_Sudoku/x64/*
+Project_Sudoku/UnitTest1/x64/*
+Project_Sudoku/UnitTest1/Debug/*
 *.suo
 *.db
 *.psess
 *.vspx
-!sudoku.exe
+!BIN/sudoku.exe
 
 # Prerequisites
 *.d
