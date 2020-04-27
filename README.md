@@ -1,4 +1,5 @@
-Personal_Suduku (The project has stopped development and maintenance.)
+Personal_Suduku   
+！！！The project has stopped development and maintenance.！！！  
 ===
 软件工程基础课的个人项目作业。一款数独游戏的控制台程序，emmmmm，我知道数独英语是**sudoku**，上面那个**suduku**。。。请忽略谢谢！  
 
